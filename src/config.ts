@@ -112,12 +112,12 @@ export type InProgressItem = {
 
 export const inProgress: InProgressItem[] = [
   {
-    name: "Undergrove",
+    name: "undergrove",
     kind: "local web app",
     description: "Forecasts Jira delivery dates and explains why, entirely on your machine.",
   },
   {
-    name: "Gladeline",
+    name: "gladeline",
     kind: "CLI tool / DSL",
     description: "A small language for EMs to record objectives, initiatives, decisions, and risks as structured text — then query and visualize them.",
   },

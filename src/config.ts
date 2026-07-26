@@ -25,7 +25,7 @@ export const hero = {
   headlineLine2: "LEADER",
   lede: "Building customer-facing products and the teams behind them — from writing the code myself to scaling an engineering org 3x. Lately, back to shipping hands-on: the tools below are what I've been building on the side.",
   initials: "AS",
-  avatarImage: "https://picsum.photos/id/349/100/100",
+  avatarImage: "./avatar.png",
   buildingTileText: "hueglint, ladderline, tracewood, and more",
   writingTileText: "Notes on shipping, extracted from real work",
 };

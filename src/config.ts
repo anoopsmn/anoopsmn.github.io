@@ -111,8 +111,16 @@ export type InProgressItem = {
 };
 
 export const inProgress: InProgressItem[] = [
-  { name: "Jira CLI", kind: "CLI tool", description: "Query and update Jira tickets from the terminal without opening the browser." },
-  { name: "Gladeline", kind: "DSL / site generator", description: "A small grammar for describing a site's content and structure, compiling to a real Astro project." },
+  {
+    name: "Undergrove",
+    kind: "local web app",
+    description: "Forecasts Jira delivery dates and explains why, entirely on your machine.",
+  },
+  {
+    name: "Gladeline",
+    kind: "CLI tool / DSL",
+    description: "A small language for EMs to record objectives, initiatives, decisions, and risks as structured text — then query and visualize them.",
+  },
 ];
 
 type FooterLink = {

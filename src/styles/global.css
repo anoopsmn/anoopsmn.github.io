@@ -207,6 +207,11 @@ th {
   background: var(--bg-raised);
 }
 
+[data-theme="dark"] .theme-toggle svg {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
 footer {
   border-top: 1px solid var(--rule);
   margin-top: 4rem;

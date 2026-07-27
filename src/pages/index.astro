@@ -1,7 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Timeline from "../components/Timeline.astro";
+import { getCollection } from "astro:content";
+import { getSortedPosts} from "../lib/posts";
 import { site, hero, timeline, focusAreas } from "../config";
+
+const posts =  (await getSortedPosts()).slice(0, 3);
 ---
 
 <Layout title="Home">
@@ -43,6 +47,22 @@ import { site, hero, timeline, focusAreas } from "../config";
 
   <h2>Journey</h2>
   <Timeline items={timeline} />
+    {posts.length > 0 && (
+      <section class="recent-writing">
+        <div class="recent-writing__head">
+          <h2>Recent writing</h2>
+          <a href="/writing">All posts &rarr;</a>
+        </div>
+        <ul class="recent-writing__list">
+          {posts.map((post) => (
+            <li>
+              <a href={`/writing/${post.id}`}>{post.data.title}</a>
+              <span class="recent-writing__desc"> — {post.data.description}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
 </Layout>
 
 <style>
@@ -143,4 +163,31 @@ import { site, hero, timeline, focusAreas } from "../config";
     flex-wrap: wrap;
     gap: 0.6rem;
   }
+  .recent-writing {
+  margin-top: 3rem;
+}
+.recent-writing__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.recent-writing__head a {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.recent-writing__list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.recent-writing__list a {
+  font-weight: 600;
+}
+.recent-writing__desc {
+  color: var(--ink-soft);
+}
 </style>

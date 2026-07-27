@@ -4,11 +4,20 @@ import { site, footerLinks } from "../config";
 import Nav from "../components/Nav.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import BackToTop from "../components/BackToTop.astro";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   title: string;
   description?: string;
 }
+
+const footerIconFor: Record<string, string> = {
+  GitHub: "simple-icons:github",
+  LinkedIn: "simple-icons:linkedin",
+  Twitter: "simple-icons:x",
+  Email: "lucide:mail",
+  Resume: "lucide:file-text",
+};
 
 const { title, description = "Engineering portfolio." } = Astro.props;
 const year = new Date().getFullYear();
@@ -57,7 +66,9 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
       <span>&copy; {year} {site.name}</span>
       <span class="footer-links">
         {footerLinks.map((link) => (
-          <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+          <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} title={link.label}>
+            <Icon name={footerIconFor[link.label] ?? "lucide:link"} width="16" height="16" />
+          </a>
         ))}
       </span>
     </footer>

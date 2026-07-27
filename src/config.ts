@@ -112,6 +112,10 @@ export type InProgressItem = {
 
 export const inProgress: InProgressItem[] = [
   {
+    name: "trailvine",
+    kind: "SVG library",
+    description: "Draws the curved route through a set of points — framework-agnostic core, thin bindings on top.",
+  }, {
     name: "undergrove",
     kind: "local web app",
     description: "Forecasts Jira delivery dates and explains why, entirely on your machine.",

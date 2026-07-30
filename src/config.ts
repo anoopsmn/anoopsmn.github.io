@@ -71,6 +71,17 @@ export const tools: Tool[] = [
     ],
   },
   {
+  name: "trailvine",
+  kind: "npm",
+  description: "Draws a curved SVG route through a set of milestones — a framework-agnostic core, with thin bindings for React and vanilla JS. Pick a shape, tune it live, copy the result as code.",
+  tags: ["svg", "timeline"],
+  links: [
+    { label: "GitHub", href: "https://github.com/umbrova/trailvine" },
+    { label: "npm", href: "https://www.npmjs.com/package/@trailvine/core" },
+    { label: "Web", href: "https://trailvine.umbrova.com" },
+  ],
+},
+  {
     name: "lastleaf",
     kind: "Chrome extension",
     description: "Quietly captures the tabs you close, grouping them by topic into an interactive graph — so the one you actually needed is easy to find again.",
@@ -111,11 +122,7 @@ export type InProgressItem = {
 };
 
 export const inProgress: InProgressItem[] = [
-  {
-    name: "trailvine",
-    kind: "SVG library",
-    description: "Draws the curved route through a set of points — framework-agnostic core, thin bindings on top.",
-  }, {
+ {
     name: "undergrove",
     kind: "local web app",
     description: "Forecasts Jira delivery dates and explains why, entirely on your machine.",

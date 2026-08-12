@@ -11,12 +11,15 @@ export const site = {
 type NavItem = {
   href: string;
   label: string;
+  newTab?: boolean;
 };
 
 export const nav: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/building", label: "Building" },
   { href: "/writing", label: "Writing" },
+  { href: "/about", label: "About me" },
+  { href: "/resume.pdf", label: "Resume", newTab: true },
 ];
 
 export const hero = {
@@ -155,11 +158,12 @@ export type TimelineEntry = {
 // Any number of entries works — layoutTimelinePoints() spaces them evenly
 // and alternates high/low bands regardless of count.
 export const timeline: TimelineEntry[] = [
-  { date: "2008", title: "Started as a web engineer, building customer-facing products" },
-  { date: "2012", title: "Grew into a senior engineering role, leading delivery on enterprise platforms" },
-  { date: "2019", title: "Became a frontend architect, owning system-level technical decisions" },
-  { date: "2022", title: "Stepped into people leadership, running delivery across multiple teams" },
-  { date: "2024", title: "Scaled an engineering org 3x as Director of Engineering" },
-  { date: "2025", title: "Went hands-on again, building independent projects end to end" },
-  { date: "2026", title: "Started building tools in the open" },
+  { date: "2008", title: "Raw Engineering · Senior Web Engineer — Started building customer-facing products" },
+  { date: "2012", title: "Railsdata · Senior Software Engineer — Grew into senior engineering, owning delivery on enterprise platforms" },
+  { date: "2017", title: "Railsdata · Technical Analyst — Expanded into technical leadership and system-level problem solving" },
+  { date: "2019", title: "Entropik · Frontend Architect — Owned system-level technical decisions" },
+  { date: "2022", title: "Entropik · Associate Director of Engineering — Led teams across multiple products" },
+  { date: "2024", title: "Entropik · Director of Engineering — Scaled the org from 20 to 65+" },
+  { date: "2025", title: "Independent · Builder — Went hands-on again, exploring modern AI-assisted development" },
+  { date: "2026", title: "Open Source · Builder — Building tools and small products in the open" },
 ];

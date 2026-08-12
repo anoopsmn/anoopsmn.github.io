@@ -1,0 +1,427 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ToolCard from "../components/ToolCard.astro";
+import { site, about } from "../config";
+
+const jumpLinks = [
+  { href: "#journey", label: "Journey" },
+  { href: "#believe", label: "What I believe" },
+  { href: "#learned", label: "Lessons" },
+  { href: "#building", label: "Building" },
+  { href: "#ai", label: "AI" },
+  { href: "#tech", label: "Tech" },
+  { href: "#now", label: "Now" },
+];
+---
+
+<Layout title="About" description={`About ${site.name} — ${about.roleLine}`}>
+  <div class="about-hero">
+    <p class="eyebrow">About</p>
+    <h1>{site.name}</h1>
+    <p class="about-hero__role">{about.roleLine}</p>
+    <p class="about-hero__short">{about.shortVersion}</p>
+  </div>
+
+  <nav class="jump-nav" aria-label="Section navigation">
+    {jumpLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+  </nav>
+
+  <section id="journey" class="section">
+    <h2>Journey</h2>
+    {about.journeyChapters.map((chapter) => (
+      <div class="journey-chapter">
+        <h3 class="journey-chapter__title">{chapter.title}</h3>
+        <div class="timeline-row">
+          {chapter.items.map((stop) => (
+            <div class="tstop">
+              <div class="dot"></div>
+              <div class="year">{stop.date}</div>
+              <div class="role">{stop.role}</div>
+              <div class="achv">{stop.achievement}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+    <p class="journey-caption">{about.journeyCaption}</p>
+  </section>
+
+  <section id="believe" class="section">
+    <h2>What I believe</h2>
+    <div class="believe-grid">
+      {about.beliefs.map((belief) => (
+        <div class={`believe-card ${belief.span ? "believe-card--span" : ""}`}>
+          <h3>{belief.title}</h3>
+          <p>{belief.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section id="learned" class="section">
+    <h2>Things experience taught me</h2>
+    <div class="lessons-list">
+      {about.lessons.map((item, i) => (
+        <details open={i === 0}>
+          <summary>{item.title}</summary>
+          {item.quote && <blockquote class="lesson-quote">{item.quote}</blockquote>}
+          <p>{item.body}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section id="building" class="section">
+    <h2>Building again</h2>
+    <p class="section-intro">{about.buildingIntro}</p>
+    <div class="tool-grid">
+      {about.projects.map((project) => <ToolCard {...project} />)}
+    </div>
+    <a href="/building" class="see-more">See everything I'm building &rarr;</a>
+  </section>
+
+  <section id="ai" class="section">
+    <h2>AI changed how I build</h2>
+    <p class="section-intro">{about.aiLine}</p>
+    <blockquote class="pull-quote">{about.aiQuote}</blockquote>
+  </section>
+
+  <section id="tech" class="section">
+    <h2>Technology</h2>
+    <p class="section-intro">{about.techCaption}</p>
+    <div class="tech-pills">
+      {about.tech.map((item) => <span class="pill">{item}</span>)}
+    </div>
+    <div class="tech-pills tech-pills--secondary">
+      {about.techSecondary.map((item) => <span class="pill">{item}</span>)}
+    </div>
+  </section>
+
+  <section id="now" class="section">
+    <h2>Now</h2>
+    <dl class="now-grid">
+      {about.now.map((item) => (
+        <>
+          <dt>{item.label}</dt>
+          <dd>{item.value}</dd>
+        </>
+      ))}
+    </dl>
+  </section>
+
+  <section class="section section--coda">
+    <h2>Elsewhere</h2>
+    <p class="personal-line">{about.personalLine}</p>
+  </section>
+
+  <section class="closer">
+    <blockquote class="pull-quote pull-quote--closer">{about.closerQuote}</blockquote>
+  </section>
+</Layout>
+
+<script is:inline>
+  const links = Array.from(document.querySelectorAll(".jump-nav a"));
+  const sections = links
+    .map((link) => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean);
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = "#" + entry.target.id;
+          links.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === id));
+        }
+      });
+    },
+    { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+</script>
+
+<style>
+  .about-hero {
+    margin-bottom: 2rem;
+  }
+  .about-hero__role {
+    font-family: var(--font-mono);
+    color: var(--ink-soft);
+    margin: 0 0 1.25rem;
+  }
+  .about-hero__short {
+    max-width: 60ch;
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 1.1rem 1.4rem;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* Sticky jump-nav, pinned just below the site header. There's no shared
+     header-height variable, so `top` approximates the header's rendered
+     height (padding + its tallest child, the 32px theme toggle). */
+  .jump-nav {
+    position: sticky;
+    top: 4.25rem;
+    z-index: 30;
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.85rem 0;
+    margin-bottom: 2.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .jump-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .jump-nav a:hover {
+    color: var(--accent-ink);
+  }
+  .jump-nav a.active {
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
+
+  .section {
+    margin-bottom: 3.5rem;
+    scroll-margin-top: 4.5rem;
+  }
+  .section-intro {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .journey-chapter {
+    margin-bottom: 2.5rem;
+  }
+  .journey-chapter:last-of-type {
+    margin-bottom: 0;
+  }
+  .journey-chapter__title {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding-left: 0.75rem;
+    margin: 0 0 1rem;
+  }
+
+  /* Flat single-row layout: one straight connector per chapter, dots on
+     it, stop text stacked below. The connector's left/right inset equals
+     half a stop's fixed width, so it stays centered on the first/last dot
+     no matter how many stops are in a given chapter's row. */
+  .timeline-row {
+    display: flex;
+    gap: 4px;
+    position: relative;
+    padding-top: 0.5rem;
+  }
+  .timeline-row::before {
+    content: "";
+    position: absolute;
+    top: 0.95rem;
+    left: 110px;
+    right: 110px;
+    height: 1px;
+    background: var(--rule-strong);
+  }
+  .tstop {
+    flex: 0 0 auto;
+    width: 220px;
+    text-align: left;
+    position: relative;
+  }
+  .tstop .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin: 0 0 0.6rem;
+    border: 2px solid var(--bg);
+  }
+  .tstop .year {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-ink);
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .tstop .role {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .tstop .achv {
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+  @media (max-width: 640px) {
+    .timeline-row {
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .journey-caption {
+    max-width: 55ch;
+    margin: 2rem auto 0;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  .believe-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .believe-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.25rem 1.4rem;
+  }
+  .believe-card h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+  .believe-card p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+  .believe-card--span {
+    grid-column: 1 / -1;
+  }
+  @media (max-width: 640px) {
+    .believe-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .lessons-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .lessons-list details {
+    border-top: 1px solid var(--rule);
+    padding-block: 0.9rem;
+  }
+  .lessons-list details:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+  .lessons-list summary {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .lessons-list summary::marker {
+    color: var(--accent-ink);
+  }
+  .lesson-quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.9rem;
+    margin: 0.85rem 0 0.6rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .lessons-list details p {
+    margin: 0.5rem 0 0.25rem;
+    color: var(--ink-soft);
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .see-more {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .pull-quote {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-ink);
+    text-align: center;
+    max-width: 55ch;
+    margin: 0 auto;
+    padding: 0.5rem 0;
+  }
+
+  .tech-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .tech-pills--secondary {
+    margin-top: 0.75rem;
+  }
+  .tech-pills--secondary .pill {
+    border-style: dashed;
+    color: var(--ink-faint);
+  }
+
+  .now-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.75rem 1.5rem;
+    margin: 0;
+  }
+  .now-grid dt {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .now-grid dd {
+    margin: 0;
+  }
+  @media (max-width: 480px) {
+    .now-grid {
+      grid-template-columns: 1fr;
+    }
+    .now-grid dd {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  /* Reads as a short coda rather than a full peer section: the negative
+     top margin collapses against the previous section's margin-bottom to
+     pull it closer, without touching that section's own spacing. */
+  .section--coda {
+    margin-top: -1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .personal-line {
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+  }
+
+  .closer {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .pull-quote--closer {
+    font-size: 1.4rem;
+  }
+</style>

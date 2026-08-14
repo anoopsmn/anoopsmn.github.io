@@ -193,6 +193,18 @@ const jumpLinks = [
     text-decoration-thickness: 2px;
   }
 
+  @media (max-width: 640px) {
+    .jump-nav {
+      flex-wrap: wrap;
+      overflow-x: visible;
+      white-space: normal;
+      row-gap: 0.6rem;
+    }
+    .jump-nav a {
+      flex-shrink: 1;
+    }
+  }
+
   .section {
     margin-bottom: 3.5rem;
     scroll-margin-top: 4.5rem;

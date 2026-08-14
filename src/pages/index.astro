@@ -1,11 +1,27 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Timeline from "../components/Timeline.astro";
+import EasterEgg from "../components/EasterEgg.astro";
 import { getCollection } from "astro:content";
-import { getSortedPosts} from "../lib/posts";
-import { site, hero, timeline, focusAreas } from "../config";
+import { site } from "../config";
+import { hero, timeline, focusAreas, buildingNowIntro, buildingNow } from "../data/home";
 
-const posts =  (await getSortedPosts()).slice(0, 3);
+// Curated, not "most recent" — a fixed set of posts in a fixed order, so
+// the homepage doesn't reshuffle every time a new post ships or an old
+// one's date changes. The /writing index page is unaffected: it always
+// shows everything by recency.
+const featuredSlugs = [
+  "0-1-needs-a-different-operating-system",
+  "visibility-isnt-the-same-as-more-meetings",
+  "what-happens-when-implementation-gets-cheap",
+];
+const featuredPosts = await getCollection(
+  "writing",
+  ({ data }) => data.featured && (import.meta.env.DEV || !data.draft)
+);
+const posts = featuredSlugs
+  .map((slug) => featuredPosts.find((post) => post.id === slug))
+  .filter((post) => post !== undefined);
 ---
 
 <Layout title="Home">
@@ -16,12 +32,15 @@ const posts =  (await getSortedPosts()).slice(0, 3);
         <h1 class="hero__line1">{hero.headlineLine1}</h1>
         <h1 class="hero__line2">{hero.headlineLine2}</h1>
       </div>
-      <div class="hero__avatar">
-        {hero.avatarImage ? (
-          <img src={hero.avatarImage} alt={site.name} />
-        ) : (
-          <span>{hero.initials}</span>
-        )}
+      <div class="hero__avatar-wrap">
+        <div class="hero__avatar" id="hero-avatar">
+          {hero.avatarImage ? (
+            <img src={hero.avatarImage} alt={site.name} />
+          ) : (
+            <span>{hero.initials}</span>
+          )}
+        </div>
+        <EasterEgg />
       </div>
     </div>
     <p class="hero__lede">{hero.lede}</p>
@@ -47,6 +66,25 @@ const posts =  (await getSortedPosts()).slice(0, 3);
 
   <h2>Journey</h2>
   <Timeline items={timeline} />
+  <a href="/about#journey" class="journey-link">View the full journey &rarr;</a>
+
+  <section class="building-now">
+    <h2>Building now</h2>
+    <p class="section-intro">{buildingNowIntro}</p>
+    <ul class="building-now__list">
+      {buildingNow.map((item) => (
+        <li>
+          <div class="building-now__head">
+            <a href={item.href}>{item.name}</a>
+            <span class="building-now__badge">{item.badge}</span>
+          </div>
+          <p class="building-now__desc">{item.description}</p>
+        </li>
+      ))}
+    </ul>
+    <a href="/building" class="see-more">View everything I'm building &rarr;</a>
+  </section>
+
     {posts.length > 0 && (
       <section class="recent-writing">
         <div class="recent-writing__head">
@@ -78,6 +116,10 @@ const posts =  (await getSortedPosts()).slice(0, 3);
     margin: 0 0 1rem;
     color: var(--rule-strong);
   }
+  .hero__avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
   .hero__avatar {
 		width: 120px;
 		height: 120px;
@@ -90,7 +132,6 @@ const posts =  (await getSortedPosts()).slice(0, 3);
 		font-family: var(--font-mono);
 		font-weight: 700;
 		font-size: 1.7rem;
-		flex-shrink: 0;
 		overflow: hidden;
 		border: 3px solid var(--bg-raised);
 		box-shadow: 0 0 0 2px var(--accent), 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -162,6 +203,56 @@ const posts =  (await getSortedPosts()).slice(0, 3);
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
+  }
+  .journey-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+  .building-now {
+    margin-top: 3rem;
+  }
+  .section-intro {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0.75rem 0 1.5rem;
+  }
+  .building-now__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .building-now__list li {
+    padding-block: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+  .building-now__list li:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+  .building-now__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  .building-now__head a {
+    font-weight: 600;
+  }
+  .building-now__badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+  .building-now__desc {
+    margin: 0.3rem 0 0;
+    color: var(--ink-soft);
+  }
+  .see-more {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
   }
   .recent-writing {
   margin-top: 3rem;

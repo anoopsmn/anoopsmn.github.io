@@ -1,0 +1,73 @@
+---
+// src/components/EasterEgg.astro
+// Click the hero avatar (#hero-avatar, on the homepage only) 3 times in
+// quick succession to reveal a small terminal-style status block. Click
+// the avatar again, or click anywhere else, to dismiss. No visible hint
+// that this exists — the avatar isn't a link, so there's no default click
+// behavior to preserve, unlike a nav/logo click target would need.
+---
+
+<pre id="easter-egg" class="easter-egg" hidden>$ anoop --status
+
+building     ✓
+learning     ✓
+curious      ✓
+still figuring it out</pre>
+
+<style>
+  .easter-egg {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+    margin: 0;
+    max-width: calc(100vw - 3rem);
+    background: #1e1b16;
+    color: #e8e2d4;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    border: 1px solid #2e2a22;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    white-space: pre;
+  }
+  .easter-egg[hidden] {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const avatar = document.getElementById("hero-avatar");
+    const egg = document.getElementById("easter-egg");
+    if (!avatar || !egg) return;
+
+    const CLICK_WINDOW = 700;
+    let clickTimes = [];
+
+    avatar.addEventListener("click", () => {
+      if (!egg.hidden) {
+        egg.hidden = true;
+        clickTimes = [];
+        return;
+      }
+
+      const now = Date.now();
+      clickTimes = clickTimes.filter((t) => now - t < CLICK_WINDOW);
+      clickTimes.push(now);
+
+      if (clickTimes.length >= 3) {
+        egg.hidden = false;
+        clickTimes = [];
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (egg.hidden) return;
+      if (avatar.contains(e.target) || egg.contains(e.target)) return;
+      egg.hidden = true;
+    });
+  })();
+</script>

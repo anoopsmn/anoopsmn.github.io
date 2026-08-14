@@ -16,7 +16,36 @@ const writing = defineCollection({
     date: z.coerce.date(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
+    // Hand-picked for the homepage's Recent Writing section, which shows a
+    // fixed, curated set rather than the most recent N posts. The /writing
+    // index page ignores this and always shows everything by recency.
+    featured: z.boolean().default(false),
   }),
 });
 
-export const collections = { writing };
+// A section either carries real `paragraphs`, or a `placeholder` string —
+// rendered in dashed-border, muted styling by ProjectDetail.astro for
+// sections that still need a real writeup.
+const buildingSection = z.union([
+  z.object({ heading: z.string(), paragraphs: z.array(z.string()) }),
+  z.object({ heading: z.string(), placeholder: z.string() }),
+]);
+
+const buildingLink = z.union([
+  z.object({ label: z.string(), href: z.string() }),
+  z.object({ label: z.string(), placeholder: z.literal(true) }),
+]);
+
+const building = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/building" }),
+  schema: z.object({
+    name: z.string(),
+    badge: z.string(),
+    tagline: z.string(),
+    tags: z.array(z.string()),
+    sections: z.array(buildingSection),
+    links: z.array(buildingLink),
+  }),
+});
+
+export const collections = { writing, building };

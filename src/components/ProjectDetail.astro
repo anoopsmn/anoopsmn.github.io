@@ -1,8 +1,10 @@
 ---
 import { Icon } from "astro-icon/components";
-import type { ProjectDetail } from "../config";
+import type { CollectionEntry } from "astro:content";
 
-const { project } = Astro.props as { project: ProjectDetail };
+type BuildingData = CollectionEntry<"building">["data"];
+
+const { project } = Astro.props as { project: BuildingData };
 
 const iconFor: Record<string, string> = {
   GitHub: "simple-icons:github",

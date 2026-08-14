@@ -4,6 +4,7 @@ description: "If writing software becomes dramatically cheaper, what becomes mor
 date: 2026-08-12
 draft: false
 tags: ["ai", "engineering", "future-of-development"]
+featured: true
 ---
 
 For most of my career, writing software took time.

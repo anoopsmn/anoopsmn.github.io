@@ -82,6 +82,16 @@ header nav a[aria-current="page"] {
   text-decoration-thickness: 2px;
 }
 
+header nav li.nav-secondary {
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--rule);
+}
+
+header nav li.nav-secondary a {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
   .nav-toggle-checkbox {
     display: none;
   }
@@ -121,6 +131,12 @@ header nav a[aria-current="page"] {
     }
     .nav-toggle-checkbox:checked ~ ul {
       display: flex;
+    }
+    header nav li.nav-secondary {
+      padding-left: 0;
+      padding-top: 0.75rem;
+      border-left: none;
+      border-top: 1px solid var(--rule);
     }
   }
 

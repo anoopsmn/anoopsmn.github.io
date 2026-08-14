@@ -13,11 +13,11 @@ const currentPath = Astro.url.pathname;
     {nav.map((item) => {
       const isActive = item.href === "/" ? currentPath === "/" : currentPath.startsWith(item.href);
       return (
-        <li>
+        <li class={item.secondary ? "nav-secondary" : undefined}>
           <a  href={item.href}
               target={item.newTab ? "_blank" : undefined}
               rel={item.newTab ? "noopener noreferrer" : undefined}
-              aria-current={isActive ? "page" : undefined}>
+              aria-current={isActive && !item.secondary ? "page" : undefined}>
             {item.label}
           </a>
         </li>

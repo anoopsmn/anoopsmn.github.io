@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ToolCard from "../components/ToolCard.astro";
-import { openSourceTools, experimentTools, inProgress } from "../config";
+import { openSourceTools, experimentTools, inProgress, decisions } from "../data/building";
 ---
 
 <Layout title="Building" description="Tools and projects.">
@@ -24,6 +24,19 @@ import { openSourceTools, experimentTools, inProgress } from "../config";
     <div class="tool-grid">
       {experimentTools.map((tool) => <ToolCard {...tool} />)}
     </div>
+  </section>
+
+  <section class="tool-group">
+    <h2 class="group-title">Decisions</h2>
+    <ul class="decisions-list">
+      {decisions.map((item) => (
+        <li>
+          <h3 class="decisions-list__title">{item.title}</h3>
+          <p class="decisions-list__body">{item.body}</p>
+          {item.href && <a href={item.href}>{item.linkLabel}</a>}
+        </li>
+      ))}
+    </ul>
   </section>
 
   {inProgress.length > 0 && (
@@ -75,6 +88,28 @@ import { openSourceTools, experimentTools, inProgress } from "../config";
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
+  }
+  .decisions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .decisions-list li {
+    padding-block: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+  .decisions-list__title {
+    font-size: 0.95rem;
+    margin: 0 0 0.4rem;
+  }
+  .decisions-list__body {
+    color: var(--ink-soft);
+    max-width: 65ch;
+    margin: 0 0 0.5rem;
+  }
+  .decisions-list a {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
   }
   .in-progress {
     margin-top: 1rem;

@@ -4,6 +4,7 @@ description: "Managing multiple products taught me that teams need visibility as
 date: 2026-08-02
 draft: false
 tags: ["engineering-management", "teams", "productivity"]
+featured: true
 ---
 
 One of the problems that shows up when you're managing multiple products is surprisingly simple:

@@ -18,8 +18,9 @@ export type Tool = {
   detailHref?: string;
 };
 
-// Published, documented, meant for other people to use — each one has a
-// /building/<slug> writeup linked via `detailHref`.
+// Published, documented, meant for other people to use. Most have a
+// /building/<slug> writeup linked via `detailHref`, but it's optional —
+// pinefold doesn't have one and still belongs here.
 export const openSourceTools: Tool[] = [
   {
     name: "hueglint",
@@ -55,6 +56,16 @@ export const openSourceTools: Tool[] = [
     ],
     detailHref: "/building/trailvine",
   },
+  {
+    name: "pinefold",
+    kind: "Astro theme",
+    description: "The theme powering this site — six color palettes, a data-driven timeline, content collections, all config-driven. Open source.",
+    tags: ["astro", "theme", "open-source"],
+    links: [
+      { label: "GitHub", href: "https://github.com/anoopsmn/pinefold" },
+      { label: "Web", href: "https://pinefold.vercel.app" },
+    ],
+  },
 ];
 
 // Smaller, rougher, built mostly for personal use — no writeups.
@@ -65,16 +76,6 @@ export const experimentTools: Tool[] = [
     description: "Quietly captures the tabs you close, grouping them by topic into an interactive graph — so the one you actually needed is easy to find again.",
     tags: ["productivity"],
     links: [{ label: "Web", href: "https://lastleaf.umbrova.com" }],
-  },
-  {
-    name: "pinefold",
-    kind: "Astro theme",
-    description: "The theme powering this site — six color palettes, a data-driven timeline, content collections, all config-driven. Open source.",
-    tags: ["astro", "theme", "open-source"],
-    links: [
-      { label: "GitHub", href: "https://github.com/anoopsmn/pinefold" },
-      { label: "Web", href: "https://pinefold.vercel.app" },
-    ],
   },
   {
     name: "tracewood",

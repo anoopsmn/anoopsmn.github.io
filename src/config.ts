@@ -254,7 +254,7 @@ hueglint: {
   ],
   links: [
     { label: "GitHub", href: "https://github.com/umbrova/ladderline" },
-    { label: "Website", placeholder: true },
+    { label: "Website", href: "https://www.npmjs.com/package/@umbrova/ladderline"},
   ],
 },
 trailvine: {

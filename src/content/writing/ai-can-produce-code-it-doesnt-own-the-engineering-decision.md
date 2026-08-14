@@ -6,21 +6,7 @@ draft: false
 tags: ["ai", "engineering", "software-development"]
 ---
 
-I've been using AI coding assistants much more seriously over the last year.
-
-Not just for autocomplete.
-
-For exploration.
-
-Prototyping.
-
-Architecture discussions.
-
-Implementation.
-
-Tests.
-
-Documentation.
+I've been using AI coding assistants much more seriously over the last year — not just for autocomplete, but for exploration, prototyping, architecture discussions, implementation, tests, documentation, most of what goes into shipping something on my own independent projects.
 
 It's changed how quickly I can go from an idea to something running.
 
@@ -64,7 +50,7 @@ The architecture might not fit.
 
 The error handling might be incomplete.
 
-The abstraction might be unnecessary.
+The abstraction might be unnecessary — one of my own libraries went through a rewrite because an AI-suggested abstraction looked clean in isolation and fell apart the moment a second consumer needed something slightly different from it.
 
 The generated code doesn't know what your product is trying to become.
 
@@ -98,12 +84,4 @@ Maybe it's product judgment.
 
 Maybe it's architecture.
 
-Maybe it's distribution.
-
-I don't know exactly where that settles yet.
-
-That's part of what I'm trying to understand by building with these tools myself.
-
-But I do know one thing:
-
-**AI can produce code. It doesn't own the engineering decision.**
+I don't know exactly where that settles yet — that's part of what I'm actually trying to find out by building things myself again instead of just reading about it. But the part I'm sure of hasn't changed: AI can produce code. It doesn't own the engineering decision. Someone still has to decide whether the thing it produced should exist.

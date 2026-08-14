@@ -64,7 +64,7 @@ If every new feature requires touching the same fragile piece of code, the inter
 
 That's the debt you should probably pay down.
 
-The trick is knowing the difference.
+The trick is knowing the difference — and it's usually a five-minute conversation, not a formal audit. Which piece of code came up in the last three postmortems? That's your answer.
 
 ## Business decisions and engineering decisions aren't separate
 
@@ -82,10 +82,8 @@ Experiments.
 
 Competitors.
 
-Sometimes the business needs something now.
+Sometimes the business needs something now. Cutting customer-reported defects by a third over a year didn't come from refusing every shortcut — it came from being explicit about which corners we were cutting and adding a release gate before the riskiest ones shipped.
 
 The engineering job is not to prevent every shortcut.
 
-It's to make the trade-off visible and understand what we're buying with it.
-
-**Technical debt isn't automatically bad engineering. Unconscious technical debt is.**
+It's to make the trade-off visible and understand what we're buying with it. Debt you wrote down and can name isn't really debt anymore — it's a decision. It's the debt nobody can explain that costs you.

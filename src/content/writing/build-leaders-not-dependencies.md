@@ -48,15 +48,7 @@ Delegating a task is easy.
 
 Delegating a decision is harder.
 
-You have to give someone enough context to make the decision themselves.
-
-That means explaining:
-
-- What outcome matters
-- What constraints exist
-- What can be changed
-- What can't
-- When they should involve you
+You have to give someone enough context to make the decision themselves — what outcome actually matters, what constraints are fixed versus negotiable, and when they should loop you in versus just deciding.
 
 Then you have to let them make the decision.
 
@@ -88,8 +80,4 @@ Can a manager handle a difficult situation without escalating everything?
 
 If the answer is yes, that's a healthy organization.
 
-The best sign that you're doing your job as a leader isn't that everyone needs you.
-
-It's the opposite.
-
-**More things should be able to happen without you.**
+The best sign that you're doing your job as a leader isn't that everyone needs you. It's the opposite — and honestly, the moment I noticed it working was mundane: a release went out fine on a day I was in back-to-back meetings and hadn't looked at it once. Nobody mentioned it as a big deal. That's exactly what it should feel like.

@@ -30,7 +30,7 @@ AI is changing that.
 
 I've noticed this in my own projects.
 
-An idea that would previously have needed a weekend can sometimes become a working prototype in an evening.
+An idea that would previously have needed a weekend can sometimes become a working prototype in an evening — a whole extension idea, from nothing to something I could click through, in less time than it used to take me to settle on a folder structure.
 
 That's useful.
 
@@ -64,7 +64,7 @@ This is the part I find interesting.
 
 If implementation gets cheaper, knowing how to implement something is still useful.
 
-But knowing **whether it should be implemented** becomes even more valuable.
+But knowing whether it should be implemented becomes even more valuable.
 
 The same is true for architecture.
 
@@ -78,28 +78,10 @@ And why.
 
 I don't think software engineers disappear because code generation gets better.
 
-I think the job moves upward.
-
-More time thinking about problems.
-
-More time understanding systems.
-
-More time reviewing.
-
-More time making trade-offs.
-
-More time talking to users and product teams.
-
-Less time typing boilerplate.
+I think the job moves upward: more time thinking about problems, understanding systems, reviewing, making trade-offs, talking to users. Less time typing boilerplate.
 
 That's not necessarily a bad future.
 
-I've spent the last few years mostly managing engineers.
+I've spent the last few years mostly managing engineers. Going back to hands-on building — shipping my own small tools, not reviewing someone else's PR — has given me a chance to feel that shift firsthand instead of just describing it to a team.
 
-Going back to hands-on building has given me a chance to experience this shift directly.
-
-I'm still figuring out what it means.
-
-But that's probably the most interesting part.
-
-**When implementation gets cheap, judgment becomes expensive.**
+I'm still figuring out what it means for the day-to-day of the job. But if there's one thing I'm fairly sure of already: the parts of the work that got cheaper were never the parts that were hard to teach. Judging whether something's worth building was always the harder skill. It's just more visible now that it's the only thing left to do slowly.

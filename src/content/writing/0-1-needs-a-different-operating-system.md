@@ -20,7 +20,7 @@ You change it.
 
 You ship again.
 
-That was how we approached some of the early product work I was involved in. There wasn't much ceremony. People were close to the problem, decisions were quick, and everyone knew what everyone else was working on.
+That was how we approached some of the early product work at Entropik — new product lines built on emotion-AI models that didn't have proven demand yet. There wasn't much ceremony. People were close to the problem, decisions were quick, and everyone knew what everyone else was working on.
 
 And that was mostly a good thing.
 
@@ -28,7 +28,7 @@ And that was mostly a good thing.
 
 The interesting thing happens when the product survives.
 
-Suddenly there are more customers.
+Suddenly there are more customers — eventually enterprise customers across dozens of countries, not just a handful of early adopters who'd forgive rough edges.
 
 More engineers.
 
@@ -56,7 +56,7 @@ We eventually had to introduce more structure around ownership, delivery and vis
 
 Not because process was the goal.
 
-Because there were problems we could actually see.
+Because there were problems we could actually see. Releases had become unpredictable — sprint predictability was sitting somewhere around 60%, which meant plans and reality were only loosely related — and nobody could say with confidence who owned what once a product touched more than one team.
 
 If releases were becoming unpredictable, we needed something to improve predictability.
 
@@ -82,4 +82,4 @@ Not because the company suddenly became "enterprise".
 
 Because the system itself became more complicated.
 
-**The goal isn't to add process. It's to add just enough structure that complexity doesn't become chaos.**
+That's mostly what the guardrails ended up buying us — not enterprise theater, just enough shared ownership that a release didn't depend on three specific people remembering the same context. Predictability eventually moved from that ~60% up into the mid-80s. Unglamorous number, but it's the difference between a team trusting its own estimates and a team guessing every sprint.

@@ -14,19 +14,9 @@ Not because people aren't working.
 
 Usually the opposite.
 
-There is so much happening that it becomes difficult to see the important things.
+There is so much happening that it becomes difficult to see the important things: what's blocked, what's slipping, where two teams are quietly dependent on each other, what needs a decision nobody's made yet.
 
-What's blocked?
-
-What's slipping?
-
-Where are two teams dependent on each other?
-
-What needs a decision?
-
-What is quietly becoming a problem?
-
-At one point, we started using pods to make ownership and delivery more visible across teams.
+At one point, while I was running delivery across two SaaS products at once, we started using pods to make ownership and delivery more visible across teams.
 
 It helped.
 
@@ -104,16 +94,10 @@ The work that doesn't get done because the team is waiting for the next meeting.
 
 That's why I don't think the answer to poor visibility is automatically another meeting.
 
-Sometimes the answer is a better dashboard.
+Some of what we needed turned out to live in dashboards instead — we started pulling PR review turnaround and cycle time into LinearB, which meant a stuck review showed up on a graph before it ever needed a standup to surface it.
 
 Sometimes it's a written update.
 
-Sometimes it's a clearer owner.
-
 Sometimes it's simply asking why nobody knows what's happening.
 
-**Good visibility should help people act.**
-
-If it only helps someone report that work is happening, it's probably not visibility.
-
-It's ceremony.
+Good visibility should help people act. The LinearB numbers only mattered because we actually changed things because of them — reviewer rotation, smaller PRs, review SLAs. A dashboard nobody acts on is just ceremony with extra steps.

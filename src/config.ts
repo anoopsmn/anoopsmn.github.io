@@ -54,9 +54,14 @@ export type Tool = {
   description: string;
   tags: string[];
   links: ToolLink[];
+  // Set only on tools that have a written /building/<slug> detail page.
+  // ToolCard renders the "How it's built →" link only when this is present.
+  detailHref?: string;
 };
 
-export const tools: Tool[] = [
+// Published, documented, meant for other people to use — each one has a
+// /building/<slug> writeup linked via `detailHref`.
+export const openSourceTools: Tool[] = [
   {
     name: "hueglint",
     kind: "npm",
@@ -66,6 +71,7 @@ export const tools: Tool[] = [
       { label: "GitHub", href: "https://github.com/umbrova/hueglint" },
       { label: "Web", href: "https://hueglint.umbrova.com" },
     ],
+    detailHref: "/building/hueglint",
   },
   {
     name: "ladderline",
@@ -76,24 +82,37 @@ export const tools: Tool[] = [
       { label: "GitHub", href: "https://github.com/umbrova/ladderline" },
       { label: "npm", href: "https://www.npmjs.com/package/@umbrova/ladderline"}
     ],
+    detailHref: "/building/ladderline",
   },
   {
-  name: "trailvine",
-  kind: "npm",
-  description: "Draws a curved SVG route through a set of milestones — a framework-agnostic core, with thin bindings for React and vanilla JS. Pick a shape, tune it live, copy the result as code.",
-  tags: ["svg", "timeline"],
-  links: [
-    { label: "GitHub", href: "https://github.com/umbrova/trailvine" },
-    { label: "npm", href: "https://www.npmjs.com/package/@trailvine/core" },
-    { label: "Web", href: "https://trailvine.umbrova.com" },
-  ],
-},
+    name: "trailvine",
+    kind: "npm",
+    description: "Draws a curved SVG route through a set of milestones — a framework-agnostic core, with thin bindings for React and vanilla JS. Pick a shape, tune it live, copy the result as code.",
+    tags: ["svg", "timeline"],
+    links: [
+      { label: "GitHub", href: "https://github.com/umbrova/trailvine" },
+      { label: "npm", href: "https://www.npmjs.com/package/@trailvine/core" },
+      { label: "Web", href: "https://trailvine.umbrova.com" },
+    ],
+    detailHref: "/building/trailvine",
+  },
+];
+
+// Smaller, rougher, built mostly for personal use — no writeups.
+export const experimentTools: Tool[] = [
   {
     name: "lastleaf",
     kind: "Chrome extension",
     description: "Quietly captures the tabs you close, grouping them by topic into an interactive graph — so the one you actually needed is easy to find again.",
     tags: ["productivity"],
     links: [{ label: "Web", href: "https://lastleaf.umbrova.com" }],
+  },
+  {
+    name: "grovepin",
+    kind: "Chrome extension",
+    description: "Timestamped notes on video — pin a note to a moment, jump straight back to it later.",
+    tags: ["video", "notes"],
+    links: [{ label: "Web", href: "https://grovepin.umbrova.com" }],
   },
   {
     name: "tracewood",
@@ -111,13 +130,6 @@ export const tools: Tool[] = [
       { label: "GitHub", href: "https://github.com/anoopsmn/pinefold" },
       { label: "Web", href: "https://pinefold.vercel.app" },
     ],
-  },
-  {
-    name: "grovepin",
-    kind: "Chrome extension",
-    description: "Timestamped notes on video — pin a note to a moment, jump straight back to it later.",
-    tags: ["video", "notes"],
-    links: [{ label: "Web", href: "https://grovepin.umbrova.com" }],
   },
 ];
 
@@ -140,6 +152,149 @@ export const inProgress: InProgressItem[] = [
     description: "A small language for EMs to record objectives, initiatives, decisions, and risks as structured text — then query and visualize them.",
   },
 ];
+
+// Content for the /building/<slug> detail pages. A section either carries
+// real `paragraphs`, or a `placeholder` string shown in dashed-border,
+// muted styling by ProjectDetail.astro — used for sections that still need
+// a real writeup rather than invented technical detail.
+export type ProjectDetailSection =
+  | { heading: string; paragraphs: string[] }
+  | { heading: string; placeholder: string };
+
+export type ProjectDetailLink =
+  | { label: string; href: string }
+  | { label: string; placeholder: true };
+
+export type ProjectDetail = {
+  slug: string;
+  name: string;
+  badge: string;
+  tagline: string;
+  tags: string[];
+  sections: ProjectDetailSection[];
+  links: ProjectDetailLink[];
+};
+
+const needsWriteup =
+  "[Needs a real writeup — what was the hardest part of building this, and what would you change?]";
+
+export const projectDetails: Record<string, ProjectDetail> = {
+hueglint: {
+    slug: "hueglint",
+    name: "hueglint",
+    badge: "npm",
+    tagline: "Accessible-by-default heatmap library — color scales that hold contrast and colorblind-safety from the start.",
+    tags: ["accessibility", "color", "typescript"],
+    sections: [
+      {
+        heading: "Why I built it",
+        paragraphs: [
+          "Most heatmap libraries just pick colors that look nice. Which is a problem, because the entire job of a heatmap is using color to stand in for a number — and something like 1 in 12 men have some form of color vision deficiency. Red-to-green is the default almost everywhere I looked. It's also close to the worst possible choice for that group.",
+          "So a bad palette isn't really a style preference. It's a bug. And once I saw it that way, \"make it configurable, off by default\" stopped making sense. Nobody opts into accessibility. They just don't.",
+        ],
+      },
+      {
+        heading: "What I learned",
+        paragraphs: [
+          "Avoiding red-green isn't enough by itself. Value has to come through lightness, not hue — lightness is the one thing that survives grayscale, low vision, most forms of color blindness, all at once. That killed my first instinct, which was to just hand-pick five colors that looked good together.",
+          "Ended up using five published, peer-reviewed palettes through d3-scale-chromatic instead of writing my own. Cividis exists specifically because someone proved, in an actual paper, that it holds up under every major form of CVD. Trying to redo that math myself would've just been ego.",
+        ],
+      },
+      {
+        heading: "Technical decisions",
+        paragraphs: [
+          "Two packages — a framework-agnostic core, and a thin React layer on top. Every bit of the actual palette logic lives in core: validation, the scale functions, the CVD guarantees. React doesn't touch color at all. It just passes a palette name down as a prop.",
+          "Diff mode was its own problem. A regular low-to-high scale doesn't work when a value can go negative or positive off a baseline — you need something diverging. And the obvious diverging choice, the one basically everyone uses, is red-to-blue or red-to-green. Which is exactly what I was trying to get away from in the first place. Went with purple-to-orange instead.",
+        ],
+      },
+      {
+        heading: "What I'd do differently",
+        paragraphs: [
+          "The early mockups had hexbin and Voronoi cell shapes next to the plain square grid. Only the square grid actually shipped. If I did it again I'd either build all three before calling it v1, or just not put shapes I hadn't built yet into a mockup — showing something that doesn't exist is still a kind of promise, even by accident.",
+          "Diff mode never got wired into the same touch-target protection the regular grid has on small screens. So a diff chart on a phone just renders every cell at whatever size it gets. Nothing's broken, exactly. It's just sitting there.",
+        ],
+      },
+    ],
+    links: [
+      { label: "GitHub", href: "https://github.com/umbrova/hueglint" },
+      { label: "Website", href: "https://hueglint.umbrova.com" },
+    ],
+  },
+ ladderline: {
+  slug: "ladderline",
+  name: "ladderline",
+  badge: "CLI",
+  tagline: "Local-first CLI for engineering managers — 1:1 notes and career-ladder tracking, no dashboard required.",
+  tags: ["eng-management", "local-first"],
+  sections: [
+    {
+      heading: "Why I built it",
+      paragraphs: [
+        "I wanted a way to log evidence of my own (and my reports') work as it happened, without needing a database or a dashboard — just plain files I could read and diff. Review season kept turning into reconstructing months of work from memory, and I wanted the record to already exist by the time that season started.",
+      ],
+    },
+    {
+      heading: "What I learned",
+      paragraphs: [
+        "The real lesson was that almost every bug that mattered got caught by actually running the thing, not by reading code — a Windows symlink cache silently breaking colored output, a dashboard race condition from clicking between two people quickly, a doc page describing a command that was never built. None of those would've shown up in review. They showed up because I kept testing from a clean install instead of trusting it already worked.",
+      ],
+    },
+    {
+      heading: "Technical decisions",
+      paragraphs: [
+        "Notes live as plain markdown files with YAML frontmatter, one per entry, no database — I wanted something you could grep, diff, or still read five years after the tool stopped being maintained. All the actual logic sits in a layer that only reads and writes files and never touches the terminal, which is what let me test it against real temp directories instead of mocks.",
+      ],
+    },
+    {
+      heading: "What I'd do differently",
+      paragraphs: [
+        "I'd build note-logging into the dashboard from the start instead of leaving it CLI-only — right now the dashboard can show you everything you've logged but can't add to it, which is the real gap between what it looks like it should do and what it actually does. I'd also make \"verify from a clean install\" a day-one habit instead of learning it the hard way a few times over.",
+      ],
+    },
+  ],
+  links: [
+    { label: "GitHub", href: "https://github.com/umbrova/ladderline" },
+    { label: "Website", placeholder: true },
+  ],
+},
+trailvine: {
+    slug: "trailvine",
+    name: "trailvine",
+    badge: "npm",
+    tagline: "Draws a curved SVG route through a set of milestones — a framework-agnostic core, with thin bindings for React and vanilla JS. Pick a shape, tune it live, copy the result as code.",
+    tags: ["svg", "timeline"],
+    sections: [
+      {
+        heading: "Why I built it",
+        paragraphs: [
+          "I wanted a way to turn a list of milestones into a visual route without hand-drawing SVG paths every time. trailvine picks up where that manual work left off — pick a shape, tune it against real milestones, and copy the result out as code instead of a static export.",
+        ],
+      },
+      {
+        heading: "What I learned",
+        paragraphs: [
+          "Splitting this into a zero-dependency core plus thin bindings for React and vanilla JS paid off more than I expected — the same geometry functions power both, and adding a later feature like hover-to-highlight only needed binding-level changes, no new math. The harder lesson was around testing: a chunk of the interactive behavior (responsive orientation switching, hover-to-highlight) only exists inside a live browser, and my server-rendered tests were quietly not covering any of it. Writing real jsdom-based tests caught a genuinely subtle bug — SVG elements return an SVGAnimatedString object from .className instead of a plain string, which silently broke a regex I was relying on. I wouldn't have caught that from reading the code alone.",
+        ],
+      },
+      {
+        heading: "Technical decisions",
+        paragraphs: [
+          "The core has zero runtime dependencies on purpose — the smooth curve is a hand-written Catmull-Rom-to-Bézier conversion rather than a d3-shape import, so consumers aren't pulling in anything they don't need. The layout's band array cycles through index % bands.length instead of having a separate 'alternating' vs 'custom heights' mode — one array, one mechanism, and a longer array just produces a more custom shape for free. Path options are a discriminated union keyed on curve type, so passing a radius to a straight or smooth curve is a compile-time error instead of a silently-ignored field.",
+        ],
+      },
+      {
+        heading: "What I'd do differently",
+        paragraphs: [
+          "I published the first version manually before setting up proper release tooling, which meant the very next release had to retrofit versioning under pressure — worth doing that setup before the first publish, not after. I'd also add the browser-only interaction tests from the start rather than after noticing my server-rendered tests weren't actually exercising them; it's an easy gap to miss until you go looking for it specifically.",
+        ],
+      },
+    ],
+    links: [
+      { label: "GitHub", href: "https://github.com/umbrova/trailvine" },
+      { label: "Website", href: "https://trailvine.umbrova.com" },
+    ],
+  },
+};
 
 type FooterLink = {
   label: string;

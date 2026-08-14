@@ -1,0 +1,171 @@
+---
+import { Icon } from "astro-icon/components";
+import type { ProjectDetail } from "../config";
+
+const { project } = Astro.props as { project: ProjectDetail };
+
+const iconFor: Record<string, string> = {
+  GitHub: "simple-icons:github",
+  npm: "simple-icons:npm",
+  Website: "lucide:globe",
+};
+---
+
+<article class="project-detail">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/building">Building</a><span>/</span>{project.name}
+  </nav>
+
+  <div class="project-detail__head">
+    <h1>{project.name}</h1>
+    <span class="project-detail__badge">{project.badge}</span>
+  </div>
+  <p class="project-detail__tagline">{project.tagline}</p>
+  <ul class="project-detail__tags">
+    {project.tags.map((tag) => <li>#{tag}</li>)}
+  </ul>
+
+  {project.sections.map((section) => (
+    <section class="project-section">
+      <h2>{section.heading}</h2>
+      {"paragraphs" in section ? (
+        section.paragraphs.map((paragraph) => <p>{paragraph}</p>)
+      ) : (
+        <p class="placeholder">{section.placeholder}</p>
+      )}
+    </section>
+  ))}
+
+  <div class="project-detail__links">
+    {project.links.map((link) =>
+      "href" in link ? (
+        <a href={link.href} target="_blank" rel="noopener noreferrer">
+          <Icon name={iconFor[link.label] ?? "lucide:link"} width="16" height="16" />
+          <span>{link.label}</span>
+        </a>
+      ) : (
+        <span class="project-detail__link-placeholder">
+          <Icon name={iconFor[link.label] ?? "lucide:link"} width="16" height="16" />
+          <span>{link.label} — not yet live</span>
+        </span>
+      )
+    )}
+  </div>
+
+  <a href="/building" class="back-link back-link--bottom">&larr; Back to building</a>
+</article>
+
+<style>
+  .project-detail {
+    max-width: 68ch;
+  }
+  .breadcrumb {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .breadcrumb a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--accent-ink);
+  }
+  .breadcrumb span {
+    margin: 0 0.4rem;
+    color: var(--ink-faint);
+  }
+  .project-detail__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .project-detail__badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    background: var(--rule);
+    border-radius: 20px;
+    padding: 0.2rem 0.6rem;
+    white-space: nowrap;
+  }
+  .project-detail__tagline {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin: 0.5rem 0 1rem;
+  }
+  .project-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+  .project-detail__tags li {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-ink);
+    background: var(--accent-soft);
+    border-radius: 20px;
+    padding: 0.3rem 0.7rem;
+  }
+  .project-section {
+    margin-top: 2rem;
+  }
+  .project-section h2 {
+    font-size: 1.05rem;
+    border-left: 3px solid var(--accent);
+    padding-left: 0.75rem;
+  }
+  .project-section p {
+    color: var(--ink-soft);
+    margin: 0.75rem 0;
+  }
+  .project-section .placeholder {
+    border: 1px dashed var(--rule-strong);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    background: var(--bg-raised);
+  }
+  .project-detail__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin: 2.5rem 0 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .project-detail__links a,
+  .project-detail__link-placeholder {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--accent-ink);
+  }
+  .project-detail__links a:hover {
+    text-decoration: underline;
+  }
+  .project-detail__link-placeholder {
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .back-link--bottom {
+    margin-top: 1rem;
+  }
+  @media (max-width: 480px) {
+    .project-detail__head {
+      flex-wrap: wrap;
+    }
+    .project-detail__links {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>

@@ -1,18 +1,30 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ToolCard from "../components/ToolCard.astro";
-import { tools, inProgress } from "../config";
+import { openSourceTools, experimentTools, inProgress } from "../config";
 ---
 
 <Layout title="Building" description="Tools and projects.">
   <h1>What I'm building</h1>
   <p class="page-intro">
-    A mix of libraries, browser extensions, and internal tools — some shipped, some still in progress. Built to fix something I kept running into myself, then made public.
+    I like building small things to understand ideas. Some end up documented and published as open-source libraries. Others stay experiments — built to fix something I kept running into myself, and not much more polished than that.
   </p>
 
-  <div class="tool-grid">
-    {tools.map((tool) => <ToolCard {...tool} />)}
-  </div>
+  <section class="tool-group">
+    <h2 class="group-title">Open source</h2>
+    <p class="group-note">Published, documented, meant for other people to actually use — with a writeup on why each one exists and how it's built.</p>
+    <div class="tool-grid">
+      {openSourceTools.map((tool) => <ToolCard {...tool} />)}
+    </div>
+  </section>
+
+  <section class="tool-group">
+    <h2 class="group-title">Experiments</h2>
+    <p class="group-note">Smaller, rougher, built mostly for myself. No writeups — just what they are and why they exist.</p>
+    <div class="tool-grid">
+      {experimentTools.map((tool) => <ToolCard {...tool} />)}
+    </div>
+  </section>
 
   {inProgress.length > 0 && (
     <section class="in-progress">
@@ -41,14 +53,31 @@ import { tools, inProgress } from "../config";
     max-width: 60ch;
     margin-bottom: 2rem;
   }
+  .tool-group {
+    margin-bottom: 2.5rem;
+  }
+  .group-title {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding-left: 0.75rem;
+    margin: 0 0 0.5rem;
+  }
+  .group-note {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0 0 1.25rem;
+    font-size: 0.9rem;
+  }
   .tool-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
-    padding-block: 1.5rem 2rem;
   }
   .in-progress {
-    margin-top: 3rem;
+    margin-top: 1rem;
   }
   .in-progress__label {
     font-family: var(--font-mono);

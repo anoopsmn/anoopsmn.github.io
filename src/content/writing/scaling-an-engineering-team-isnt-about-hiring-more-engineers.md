@@ -10,7 +10,7 @@ Going from around 20 engineers to 65+ sounds like a hiring problem.
 
 It isn't.
 
-Hiring is certainly part of it.
+Hiring is certainly part of it — I ended up writing most of the roles myself and running a good chunk of the interview loops for that stretch.
 
 But the interesting problems start after the people arrive.
 
@@ -42,19 +42,11 @@ And the graph gets complicated.
 
 ## This is where structure starts helping
 
-We introduced clearer ownership and pod-based delivery as the organization grew.
+We introduced clearer ownership and a pod-based delivery model as the organization grew — each pod owning a product area end to end, rather than routing every cross-team question through a lead.
 
 Not because hierarchy was the goal.
 
-Because people needed to know:
-
-**What do I own?**
-
-**What does my team own?**
-
-**Who makes this decision?**
-
-**Who do I depend on?**
+Because people needed to know what they owned, what their team owned, who made a given call, and who they actually depended on.
 
 That clarity became more valuable as the team grew.
 
@@ -88,8 +80,6 @@ Different leadership layers.
 
 Different expectations.
 
-And eventually, different ways of measuring whether things are working.
+The onboarding process changed the most, honestly — new hires needed a real path to being productive without me personally walking them through the system, which is its own kind of scaling problem separate from the org chart.
 
-Scaling isn't just adding people.
-
-**It's redesigning the system around the people you've added.**
+Scaling isn't just adding people. It's redesigning the system around the people you've added — and admitting that the system that got you to 20 wasn't built for 65.

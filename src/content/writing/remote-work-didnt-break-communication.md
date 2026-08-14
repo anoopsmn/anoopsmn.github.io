@@ -56,7 +56,7 @@ Even something as simple as explaining **why** a piece of work existed became mo
 
 People could execute a task without understanding the larger context.
 
-That's dangerous at scale.
+That's dangerous at scale, and it's part of why attrition was a real problem in that stretch too — people who don't understand why their work matters don't stay long, no matter how well they're executing it.
 
 ## Remote work changed what good management looked like
 
@@ -88,16 +88,10 @@ And making it safe for someone to say, "I don't understand why we're doing this.
 
 ## I don't think remote work is the lesson
 
-The bigger lesson for me was that **proximity hides organizational problems**.
+The bigger lesson for me was that proximity hides organizational problems.
 
 When people are sitting next to each other, you can compensate for unclear communication with conversation.
 
 When they're distributed, you can't.
 
-That doesn't mean remote teams need more process.
-
-It means they need **better context and clearer ownership**.
-
-Remote work didn't create that requirement.
-
-It just made it impossible to ignore.
+That doesn't mean remote teams need more process. It means they need better context and clearer ownership — and that turned out to matter well beyond the remote years. We kept the written-decision habit long after people were back in the same building, because it was never really about the room. It was about whether the reasoning survived past the conversation that produced it.

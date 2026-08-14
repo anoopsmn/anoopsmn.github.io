@@ -12,7 +12,7 @@ import { openSourceTools, experimentTools, inProgress, decisions } from "../data
 
   <section class="tool-group">
     <h2 class="group-title">Open source</h2>
-    <p class="group-note">Published, documented, meant for other people to actually use — with a writeup on why each one exists and how it's built.</p>
+    <p class="group-note">Published, documented, meant for other people to actually use.</p>
     <div class="tool-grid">
       {openSourceTools.map((tool) => <ToolCard {...tool} />)}
     </div>
@@ -104,7 +104,6 @@ import { openSourceTools, experimentTools, inProgress, decisions } from "../data
   }
   .decisions-list__body {
     color: var(--ink-soft);
-    max-width: 65ch;
     margin: 0 0 0.5rem;
   }
   .decisions-list a {

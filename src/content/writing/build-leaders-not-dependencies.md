@@ -5,7 +5,6 @@ date: 2026-08-08
 draft: false
 tags: ["leadership", "management", "engineering"]
 category: Leadership
-featured: true
 ---
 
 Early in my management career, being needed felt like a good thing.

@@ -5,6 +5,7 @@ date: 2026-08-14
 draft: false
 tags: ["engineering-leadership", "execution", "team-design"]
 category: Leadership
+featured: true
 ---
 
 Sometimes the most useful thing about managing multiple teams is having a view across all of them.

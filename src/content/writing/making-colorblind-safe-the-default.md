@@ -4,6 +4,8 @@ description: "Why I couldn't just 'pick nice colors' for a heatmap library, and 
 date: 2026-07-26
 draft: false
 tags: ["accessibility", "data-visualization", "color-science", "typescript"]
+category: Building
+writingFeatured: true
 ---
 
 The hardest part of building hueglint wasn't the rendering engine, the keyboard navigation, or the responsive layout math. It was accepting that picking colors by eye wasn't actually an option here.

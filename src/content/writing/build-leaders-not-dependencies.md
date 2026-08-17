@@ -4,6 +4,7 @@ description: "The best sign that you're leading well may be that fewer things ne
 date: 2026-08-08
 draft: false
 tags: ["leadership", "management", "engineering"]
+category: Leadership
 ---
 
 Early in my management career, being needed felt like a good thing.

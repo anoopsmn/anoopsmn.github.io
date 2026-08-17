@@ -4,6 +4,7 @@ description: "Growing an engineering organization from around 20 to 65+ taught m
 date: 2026-08-04
 draft: false
 tags: ["engineering-leadership", "scaling", "teams"]
+category: Leadership
 ---
 
 Going from around 20 engineers to 65+ sounds like a hiring problem.

@@ -4,6 +4,7 @@ description: "A production-critical project needed to ship in a week. The team t
 date: 2026-08-14
 draft: false
 tags: ["engineering-leadership", "execution", "team-design"]
+category: Leadership
 ---
 
 Sometimes the most useful thing about managing multiple teams is having a view across all of them.

@@ -4,6 +4,7 @@ description: "A routine store rejection on an unrelated extension turned into a 
 date: "2026-07-10"
 draft: false
 tags: ["browser-extensions", "security", "chrome-extension", "code-review"]
+category: Engineering
 ---
 
 A different extension I'd shipped earlier got flagged during review — nothing to do with permissions, a metadata violation, too many product names crammed into the description field trying to be helpful about compatibility. Fixed it, got it published. But it left me with the habit of actually reading through a manifest line by line before submitting the next thing, instead of trusting that whatever I'd typed months earlier was still accurate.

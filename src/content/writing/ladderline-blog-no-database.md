@@ -4,6 +4,7 @@ description: "Why Ladderline stores promotion evidence in plain markdown files i
 date: 2026-07-20
 draft: false
 tags: ["engineering", "architecture", "cli", "open-source"]
+category: Architecture
 ---
 
 A note that says "pushed back on the caching design, three teams ended up adopting it" is doing real work. Somebody's case for a promotion might rest on four or five sentences like that, written down eight months before anyone reads them again. If the thing holding those sentences loses one, or quietly mangles it, or just becomes unreachable because a server went down at the wrong moment — that's not a bug report. That's someone's case missing a paragraph they can no longer reconstruct from memory.

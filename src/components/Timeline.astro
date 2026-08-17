@@ -39,9 +39,9 @@ const labels = points.map((p, i) => {
 
 <div class="timeline">
   <svg class="timeline__svg" viewBox={`0 0 ${viewW} ${viewH}`}>
-    <path d={pathD} fill="none" stroke="var(--rule-strong)" stroke-width="5.5" />
+    <path d={pathD} fill="none" stroke="var(--rule-strong)" stroke-width="2" />
     {points.map((p) => (
-      <circle cx={p.x} cy={p.y} r="8" fill="var(--bg)" stroke="var(--accent)" stroke-width="2.5" />
+      <circle cx={p.x} cy={p.y} r="4.5" fill="var(--accent)" stroke="var(--bg)" stroke-width="1.5" />
     ))}
     {labels.map((label) => (
       <g>

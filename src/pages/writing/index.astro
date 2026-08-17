@@ -1,32 +1,202 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
-import {getSortedPosts } from "../../lib/posts";
+import { getSortedPosts } from "../../lib/posts";
 
 const posts = await getSortedPosts();
+const featuredPosts = posts.filter((post) => post.data.writingFeatured);
+
+const categories = ["Engineering", "Leadership", "Architecture", "Building", "AI"] as const;
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+}
+
+function searchText(post: (typeof posts)[number]) {
+  return [post.data.title, post.data.description, ...post.data.tags].join(" ").toLowerCase();
+}
 ---
 
 <Layout title="Writing">
   <h1>Writing</h1>
-  <ul class="post-list">
-    {posts.map((post) => (
-      <li class="post-card">
-        <a href={`/writing/${post.id}`}>
-          <h2>{post.data.title}</h2>
-        </a>
-        {post.data.draft && <span class="draft-badge">Draft</span>}
-        <p class="post-card__date">
-          <Icon name="lucide:calendar" width="14" height="14" />
-          {post.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
-        </p>
-        <p class="post-card__desc">{post.data.description}</p>
-      </li>
-    ))}
-  </ul>
+
+  {featuredPosts.length > 0 && (
+    <section class="featured">
+      <p class="featured__label">Featured</p>
+      <ul class="post-list post-list--featured">
+        {featuredPosts.map((post) => (
+          <li class="post-card">
+            <a href={`/writing/${post.id}`}>
+              <h2>{post.data.title}</h2>
+            </a>
+            <p class="post-card__date">
+              <Icon name="lucide:calendar" width="14" height="14" />
+              {formatDate(post.data.date)}
+            </p>
+            <p class="post-card__desc">{post.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <section class="all-writing">
+    <p class="all-writing__label">All writing</p>
+
+    <div class="writing-controls">
+      <input
+        type="search"
+        id="search-input"
+        class="search-input"
+        placeholder="Search articles..."
+        aria-label="Search articles"
+      />
+      <div class="category-pills" id="category-pills">
+        <button type="button" class="pill is-active" data-category="all">All</button>
+        {categories.map((category) => (
+          <button type="button" class="pill" data-category={category}>{category}</button>
+        ))}
+      </div>
+    </div>
+
+    <ul class="post-list" id="post-list">
+      {posts.map((post) => (
+        <li class="post-card" data-category={post.data.category} data-search={searchText(post)}>
+          <a href={`/writing/${post.id}`}>
+            <h2>{post.data.title}</h2>
+          </a>
+          {post.data.draft && <span class="draft-badge">Draft</span>}
+          <p class="post-card__date">
+            <Icon name="lucide:calendar" width="14" height="14" />
+            {formatDate(post.data.date)}
+          </p>
+          <p class="post-card__desc">{post.data.description}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="post-list__empty" id="empty-state" hidden>No articles match your search.</p>
+  </section>
 </Layout>
 
+<script>
+  const searchInput = document.getElementById("search-input") as HTMLInputElement | null;
+  const pillsContainer = document.getElementById("category-pills");
+  const emptyState = document.getElementById("empty-state");
+  const items = Array.from(document.querySelectorAll<HTMLElement>("#post-list .post-card"));
+
+  let activeCategory = "all";
+
+  function applyFilters() {
+    const query = (searchInput?.value ?? "").trim().toLowerCase();
+    let visibleCount = 0;
+
+    for (const item of items) {
+      const matchesCategory = activeCategory === "all" || item.dataset.category === activeCategory;
+      const matchesSearch = !query || (item.dataset.search ?? "").includes(query);
+      const visible = matchesCategory && matchesSearch;
+      item.hidden = !visible;
+      if (visible) visibleCount++;
+    }
+
+    if (emptyState) emptyState.hidden = visibleCount !== 0;
+  }
+
+  pillsContainer?.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>(".pill");
+    if (!button) return;
+
+    const category = button.dataset.category ?? "all";
+    activeCategory = category === activeCategory ? "all" : category;
+
+    pillsContainer.querySelectorAll(".pill").forEach((pill) => {
+      pill.classList.toggle("is-active", (pill as HTMLElement).dataset.category === activeCategory);
+    });
+
+    applyFilters();
+  });
+
+  searchInput?.addEventListener("input", applyFilters);
+</script>
+
 <style>
+  .featured {
+    margin-bottom: 2rem;
+  }
+  .featured__label {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding-left: 0.75rem;
+    margin: 0 0 0.75rem;
+  }
+  .post-list--featured {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .all-writing__label {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding-left: 0.75rem;
+    margin: 0 0 1.25rem;
+  }
+
+  .writing-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 1.5rem;
+  }
+  .search-input {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--bg-raised);
+    color: var(--ink);
+    width: 100%;
+    max-width: 220px;
+  }
+  .search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .category-pills .pill {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    background: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .category-pills .pill:hover {
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+  .category-pills .pill.is-active {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  @media (max-width: 640px) {
+    .search-input {
+      max-width: 100%;
+    }
+  }
+
   .post-list {
     list-style: none;
     padding: 0;
@@ -66,5 +236,9 @@ const posts = await getSortedPosts();
   }
   .post-card__desc {
     margin: 0;
+  }
+  .post-list__empty {
+    color: var(--ink-soft);
+    padding: 1.25rem 0;
   }
 </style>

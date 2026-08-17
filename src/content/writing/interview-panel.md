@@ -4,6 +4,7 @@ description: "When more engineers start interviewing, consistency becomes a diff
 date: 2026-08-09
 draft: false
 tags: ["hiring", "engineering-leadership", "interviews"]
+category: Leadership
 ---
 
 A small interview panel can work well for a while. Then the team grows, hiring picks up, and the same few people end up doing most of the interviews.

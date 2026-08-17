@@ -4,6 +4,7 @@ description: "Technical debt gets talked about as something engineering teams sh
 date: 2026-08-06
 draft: false
 tags: ["engineering", "architecture", "technical-debt"]
+category: Engineering
 ---
 
 "Technical debt" is usually used as a warning.

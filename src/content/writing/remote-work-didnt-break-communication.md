@@ -4,6 +4,7 @@ description: "What managing and hiring remotely during COVID taught me about con
 date: 2026-07-31
 draft: false
 tags: ["leadership", "remote-work", "management", "engineering"]
+category: Leadership
 ---
 
 COVID changed the way we worked almost overnight.

@@ -4,6 +4,7 @@ description: "If writing software becomes dramatically cheaper, what becomes mor
 date: 2026-08-12
 draft: false
 tags: ["ai", "engineering", "future-of-development"]
+category: AI
 featured: true
 ---
 

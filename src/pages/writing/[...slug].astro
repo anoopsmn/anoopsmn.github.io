@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
+import { site } from "../../config";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("writing", ({ data }) => import.meta.env.DEV || !data.draft))
@@ -25,9 +26,27 @@ interface Props {
 
 const { post, newerPost, olderPost } = Astro.props;
 const { Content } = await render(post);
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  author: {
+    "@type": "Person",
+    name: site.name,
+  },
+};
+// Guard against "</script>" breaking out of the JSON-LD script tag if it
+// ever appeared inside frontmatter content.
+const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, "\\u003c");
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={articleSchemaJson} />
+  </Fragment>
   <article class="post">
     <a href="/writing" class="back-link">&larr; Back to writing</a>
     <p class="eyebrow">
@@ -63,8 +82,139 @@ const { Content } = await render(post);
       ) : <span />}
     </nav>
     <a href="/writing" class="back-link back-link--bottom">&larr; Back to writing</a>
+
+    <section class="comments" id="comments">
+      <h2>Comments</h2>
+
+      <div class="comments-list" id="comments-list">
+        <p class="comments-status">Loading comments&hellip;</p>
+      </div>
+
+      <form class="comment-form" id="comment-form">
+        <div class="comment-form__field">
+          <label for="comment-name">Name</label>
+          <input type="text" id="comment-name" name="name" autocomplete="name" required maxlength="80" />
+        </div>
+        <div class="comment-form__field">
+          <label for="comment-body">Comment</label>
+          <textarea id="comment-body" name="body" rows="4" required maxlength="2000"></textarea>
+        </div>
+        <button type="submit" class="comment-form__submit" id="comment-submit">Post comment</button>
+        <p class="comment-form__message" id="comment-form-message" role="status" aria-live="polite" hidden></p>
+      </form>
+    </section>
   </article>
 </Layout>
+
+<script define:vars={{ slug: post.id }}>
+  const API_BASE = "https://sidevine.silvonix.workers.dev";
+
+  const listEl = document.getElementById("comments-list");
+  const form = document.getElementById("comment-form");
+  const nameInput = document.getElementById("comment-name");
+  const bodyInput = document.getElementById("comment-body");
+  const submitBtn = document.getElementById("comment-submit");
+  const messageEl = document.getElementById("comment-form-message");
+
+  function formatDate(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  }
+
+  function renderComments(comments) {
+    listEl.innerHTML = "";
+
+    if (!comments || comments.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "comments-status";
+      empty.textContent = "No comments yet.";
+      listEl.appendChild(empty);
+      return;
+    }
+
+    for (const comment of comments) {
+      const item = document.createElement("div");
+      item.className = "comment";
+
+      const meta = document.createElement("div");
+      meta.className = "comment__meta";
+
+      const name = document.createElement("span");
+      name.className = "comment__name";
+      name.textContent = comment.name;
+      meta.appendChild(name);
+
+      const dateText = formatDate(comment.created_at);
+      if (dateText) {
+        const dateEl = document.createElement("span");
+        dateEl.className = "comment__date";
+        dateEl.textContent = dateText;
+        meta.appendChild(dateEl);
+      }
+
+      const body = document.createElement("p");
+      body.className = "comment__body";
+      body.textContent = comment.body;
+
+      item.appendChild(meta);
+      item.appendChild(body);
+      listEl.appendChild(item);
+    }
+  }
+
+  async function loadComments() {
+    try {
+      const res = await fetch(`${API_BASE}/comments?slug=${encodeURIComponent(slug)}`);
+      if (!res.ok) throw new Error("Request failed");
+      const data = await res.json();
+      renderComments(data.comments);
+    } catch {
+      listEl.innerHTML = "";
+      const errorEl = document.createElement("p");
+      errorEl.className = "comments-status";
+      errorEl.textContent = "Couldn't load comments right now.";
+      listEl.appendChild(errorEl);
+    }
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const name = nameInput.value.trim();
+    const body = bodyInput.value.trim();
+
+    if (!name || !body) {
+      messageEl.textContent = "Please fill in your name and a comment.";
+      messageEl.hidden = false;
+      return;
+    }
+
+    submitBtn.disabled = true;
+    messageEl.hidden = true;
+
+    try {
+      const res = await fetch(`${API_BASE}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ post_slug: slug, name, body }),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+
+      form.reset();
+      messageEl.textContent = "Thanks — your comment is awaiting approval.";
+      messageEl.hidden = false;
+    } catch {
+      messageEl.textContent = "Something went wrong. Please try again.";
+      messageEl.hidden = false;
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  loadComments();
+</script>
 
 <style>
   .post {
@@ -143,5 +293,118 @@ const { Content } = await render(post);
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--ink);
+  }
+
+  .comments {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 0 0 2rem;
+  }
+  /* Comment items and their empty/error states are created client-side via
+     document.createElement, so they never receive Astro's scope attribute —
+     these selectors must stay :global() to actually match them. */
+  .comments-list :global(.comments-status) {
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .comments-list :global(.comment) {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .comments-list :global(.comment:last-child) {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .comments-list :global(.comment__meta) {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0 0 0.35rem;
+  }
+  .comments-list :global(.comment__name) {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .comments-list :global(.comment__date) {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+  .comments-list :global(.comment__body) {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 480px;
+  }
+  .comment-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .comment-form__field label {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+  .comment-form__field input,
+  .comment-form__field textarea {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--bg-raised);
+    color: var(--ink);
+    resize: vertical;
+  }
+  .comment-form__field input:focus,
+  .comment-form__field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .comment-form__submit {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.6rem 1.25rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--bg);
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .comment-form__submit:hover {
+    background: var(--accent-ink);
+  }
+  .comment-form__submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .comment-form__message {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    .comment-form {
+      max-width: 100%;
+    }
   }
 </style>

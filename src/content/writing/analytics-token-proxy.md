@@ -4,6 +4,7 @@ description: "Why anonymized usage counters for a browser extension get proxied 
 date: "2026-07-06"
 draft: false
 tags: ["browser-extensions", "privacy", "security", "chrome-extension"]
+category: Architecture
 ---
 
 The moment I wanted even a rough signal — is anyone besides me actually opening this thing — I ran into a problem I hadn't thought through at all: where does the credential live.

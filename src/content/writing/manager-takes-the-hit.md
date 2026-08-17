@@ -4,6 +4,7 @@ description: "Performance ratings are rarely popular. I learned that leadership 
 date: 2026-08-13
 draft: false
 tags: ["engineering-leadership", "performance", "management"]
+category: Leadership
 ---
 
 Performance ratings are one of those things that can make a manager popular for about five minutes and unpopular for much longer.

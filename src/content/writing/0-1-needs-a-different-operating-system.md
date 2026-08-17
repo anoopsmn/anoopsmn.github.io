@@ -4,6 +4,7 @@ description: "What worked when we were trying to prove a product didn't always w
 date: 2026-07-29
 draft: false
 tags: ["engineering", "startups", "leadership", "0to1"]
+category: Leadership
 featured: true
 ---
 

@@ -4,6 +4,7 @@ description: "Building an accessibility-first library taught me that the docs de
 date: 2026-07-27
 draft: false
 tags: ["accessibility", "documentation", "testing", "engineering-practice"]
+category: Engineering
 ---
 
 The part of hueglint that almost went wrong wasn't in the code. It was a Markdown file. I was writing the accessibility documentation page — the one page whose entire job is to tell someone doing a real compliance review exactly what's true — and I nearly shipped it describing three features as done when they weren't built yet.

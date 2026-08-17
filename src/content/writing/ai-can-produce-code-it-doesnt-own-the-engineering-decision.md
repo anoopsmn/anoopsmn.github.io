@@ -4,6 +4,7 @@ description: "AI-assisted development makes implementation cheaper. That changes
 date: 2026-08-10
 draft: false
 tags: ["ai", "engineering", "software-development"]
+category: AI
 ---
 
 I've been using AI coding assistants much more seriously over the last year — not just for autocomplete, but for exploration, prototyping, architecture discussions, implementation, tests, documentation, most of what goes into shipping something on my own independent projects.

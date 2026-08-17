@@ -4,6 +4,7 @@ description: "How I pulled one app out of a shared repo, kept its real commit hi
 date: 2026-07-18
 draft: false
 tags: ["git", "vercel", "monorepo", "deployment"]
+category: Engineering
 ---
 
 The thing I actually cared about, going in, wasn't the code moving. Code moves easily. It was whether the commit history would survive the trip, or whether I'd end up with a new repo whose entire past was one commit that says "initial import" and quietly erases every decision that got the app to where it was.

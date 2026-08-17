@@ -4,6 +4,7 @@ description: "Replace this with your own writing — this file exists just to sh
 date: 2026-01-01
 draft: true
 tags: ["example"]
+category: Engineering
 ---
 
 This is a placeholder post. Delete it once you've added your own — the

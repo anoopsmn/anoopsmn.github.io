@@ -21,9 +21,21 @@ import { openSourceTools, experimentTools, inProgress, decisions } from "../data
   <section class="tool-group">
     <h2 class="group-title">Experiments</h2>
     <p class="group-note">Smaller, rougher, built mostly for myself. No writeups — just what they are and why they exist.</p>
-    <div class="tool-grid">
-      {experimentTools.map((tool) => <ToolCard {...tool} />)}
-    </div>
+    <ul class="experiments-list">
+      {experimentTools.map((tool) => (
+        <li>
+          <div class="experiments-list__head">
+            {tool.links[0] ? (
+              <a href={tool.links[0].href} target="_blank" rel="noopener noreferrer">{tool.name}</a>
+            ) : (
+              <span class="experiments-list__name">{tool.name}</span>
+            )}
+            <span class="experiments-list__badge">{tool.kind}</span>
+          </div>
+          <p class="experiments-list__desc">{tool.description}</p>
+        </li>
+      ))}
+    </ul>
   </section>
 
   <section class="tool-group">
@@ -88,6 +100,37 @@ import { openSourceTools, experimentTools, inProgress, decisions } from "../data
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
+  }
+  .experiments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .experiments-list li {
+    padding-block: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+  .experiments-list li:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+  .experiments-list__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  .experiments-list__head a,
+  .experiments-list__name {
+    font-weight: 600;
+  }
+  .experiments-list__badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+  .experiments-list__desc {
+    margin: 0.3rem 0 0;
+    color: var(--ink-soft);
   }
   .decisions-list {
     list-style: none;

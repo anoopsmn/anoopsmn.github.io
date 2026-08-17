@@ -4,6 +4,7 @@ description: "The Angular-to-React decision wasn't really about which framework 
 date: 2026-08-05
 draft: false
 tags: ["architecture", "hiring", "engineering-leadership", "react"]
+category: Architecture
 ---
 
 One of Entropik's early products was built with Angular.

@@ -16,10 +16,17 @@ const writing = defineCollection({
     date: z.coerce.date(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
+    // Single-value, explicit per post — deliberately not derived from
+    // `tags`, since a post's tags can span more categories than it belongs
+    // to for filtering purposes.
+    category: z.enum(["Engineering", "Leadership", "Architecture", "Building", "AI"]),
     // Hand-picked for the homepage's Recent Writing section, which shows a
     // fixed, curated set rather than the most recent N posts. The /writing
     // index page ignores this and always shows everything by recency.
     featured: z.boolean().default(false),
+    // Separate from `featured` above — a different, independently-curated
+    // set shown in the /writing index page's own Featured section.
+    writingFeatured: z.boolean().default(false),
   }),
 });
 

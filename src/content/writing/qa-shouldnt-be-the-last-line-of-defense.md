@@ -1,7 +1,7 @@
 ---
 title: "QA shouldn't be the last line of defense"
 description: "What I learned when tight sprint timelines turned every release into a fight between development, QA, and product."
-date: 2026-08-17
+date: 2026-08-15
 draft: false
 tags: ["engineering-leadership", "quality", "delivery", "teams"]
 category: Leadership

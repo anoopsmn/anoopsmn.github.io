@@ -1,7 +1,7 @@
 ---
 title: "Where does an API token live when your client is a public zip file?"
 description: "Why anonymized usage counters for a browser extension get proxied through a serverless endpoint instead of calling the analytics backend directly."
-date: "2026-07-06"
+date: 2026-07-06
 draft: false
 tags: ["browser-extensions", "privacy", "security", "chrome-extension"]
 category: Architecture

@@ -27,7 +27,7 @@ The first time I caught it, the fix was straightforward: split the page into wha
 
 A few weeks later, I built the three "planned" features for real: reduced-motion support, the forced-colors/contrast handling, and the spoken summary generator. I updated the docs page to move them from "planned" to "done" — and almost immediately realized the page's closing line still said "the planned items aren't covered by tests yet," which was now backwards. The claim had drifted out of sync with reality a second time, in the exact same file, just in the opposite direction: now it was *underselling* what the library actually did.
 
-That's when the real fix became obvious: the problem was never really about writing the sentence correctly once. It was that a document describing a moving codebase will always drift out of sync with it, in either direction, unless something forces the two to stay aligned. Cut this sentence entirely, end the paragraph one line earlier at "just in the opposite direction.
+That's when the real fix became obvious: the problem was never really about writing the sentence correctly once. It was that a document describing a moving codebase will always drift out of sync with it, in either direction, unless something forces the two to stay aligned.
 
 ## Tests, not memory
 

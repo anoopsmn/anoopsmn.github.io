@@ -1,7 +1,7 @@
 ---
 title: "Two permissions sitting in a manifest that nothing in the code used"
 description: "A routine store rejection on an unrelated extension turned into a habit of reading permission manifests skeptically — which is how a broad host permission and a scripting permission with no code behind them got found."
-date: "2026-07-10"
+date: 2026-07-10
 draft: false
 tags: ["browser-extensions", "security", "chrome-extension", "code-review"]
 category: Engineering

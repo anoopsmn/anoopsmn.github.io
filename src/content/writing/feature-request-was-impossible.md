@@ -5,7 +5,7 @@ date: 2026-07-28
 draft: false
 tags: ["product-engineering", "leadership", "shipping"]
 category: Engineering
-writingFeatured: true
+
 ---
 
 An account executive came to us with a request that sounded simple: a potential client wanted a CSV containing all the insight charts from one of our Media Research dashboards.

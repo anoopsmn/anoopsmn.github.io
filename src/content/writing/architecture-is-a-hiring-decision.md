@@ -5,6 +5,7 @@ date: 2026-08-05
 draft: false
 tags: ["architecture", "hiring", "engineering-leadership", "react"]
 category: Architecture
+featured: true
 ---
 
 One of Entropik's early products was built with Angular.

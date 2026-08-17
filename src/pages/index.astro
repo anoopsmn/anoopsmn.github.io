@@ -6,22 +6,17 @@ import { getCollection } from "astro:content";
 import { site } from "../config";
 import { hero, timeline, focusAreas, buildingNowIntro, buildingNow } from "../data/home";
 
-// Curated, not "most recent" — a fixed set of posts in a fixed order, so
-// the homepage doesn't reshuffle every time a new post ships or an old
-// one's date changes. The /writing index page is unaffected: it always
-// shows everything by recency.
-const featuredSlugs = [
-  "0-1-needs-a-different-operating-system",
-  "visibility-isnt-the-same-as-more-meetings",
-  "what-happens-when-implementation-gets-cheap",
-];
+// Curated via each post's `featured` frontmatter flag, not a hardcoded
+// slug list, so this section can't drift out of sync with the content.
+// The /writing index page is unaffected: it always shows everything by
+// recency.
 const featuredPosts = await getCollection(
   "writing",
   ({ data }) => data.featured && (import.meta.env.DEV || !data.draft)
 );
-const posts = featuredSlugs
-  .map((slug) => featuredPosts.find((post) => post.id === slug))
-  .filter((post) => post !== undefined);
+const posts = featuredPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
 ---
 
 <Layout title="Home">

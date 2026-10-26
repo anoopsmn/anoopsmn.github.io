@@ -16,23 +16,8 @@ title: When the hiring process starts failing, the symptoms show up late
 Hiring in a startup is rarely just about finding someone who can do the
 job. You're competing with companies that may have stronger brand
 recognition, and you don't always have the flexibility to match their
-compensation.
-
-A small number of negative reviews can also weigh heavily on a startup's
-Glassdoor rating. A larger company may have thousands of reviews to
-balance things out; a startup might have only a handful. Some reviews
-are written by people who had a genuinely bad experience, while others
-can be a way to vent. Either way, candidates see the rating before they
-know the people or the work.
-
-Compensation was another challenge. There were cases where salary parity
-was difficult to address because those decisions weren't mine to make. I
-could raise the concern with top management, but I couldn't unilaterally
-change the structure. When people shared salaries, the differences
-sometimes surfaced during performance reviews and made those
-conversations harder. We had to work through that while trying to keep
-attrition under control, and we managed to do so with less attrition
-than the situation might have suggested.
+compensation. Those constraints were real for us, but there were also
+parts of the process we could improve ourselves.
 
 ## Too many interviews, too little recall
 
@@ -42,33 +27,28 @@ but the volume created another problem: by the time we needed to compare
 candidates or remember who had passed which round, the details weren't
 always fresh.
 
-Sometimes a candidate could take two or three months to join. It's not
-surprising that interviewers might struggle to remember a face or the
-specifics of a conversation after that much time and that many
-interviews.
+Sometimes a candidate could take two or three months to join. Even with
+written feedback, it was difficult to remember every conversation and
+every face after that much time and that many interviews.
 
 We had two hiring incidents that made the weakness in our process clear.
 
 In one case, we hired a senior candidate whose experience looked strong
-on paper. Within the first few days, it became clear that the person
-wasn't demonstrating the experience we'd expected. As we tried to
-understand what was happening, we discovered that the person who had
-gone through the interview may not have been the person who joined.
+on paper. Within the first few days, it became clear that the experience
+we had assessed in the interviews wasn't showing up in the work. As we
+looked into what had happened, we had reason to believe that the person
+who joined might not have been the person we had interviewed.
 
-We had another case with a similar pattern. By then, we had started
-asking people to work from the office two days a week. One candidate
-said they could join the Bengaluru office only after six months because
-of family circumstances. We agreed to the arrangement. Over the
-following months, tasks were repeatedly delayed, and when the person got
-stuck, we often didn't hear about it during the day. Later, we would see
-the correct code pushed at night. After a series of incidents, we found
-out that the person who had completed the interview was reportedly
-someone else.
+A later incident raised a similar concern. By then, we had started
+working from the office two days a week. After a series of delivery and
+communication issues, we again had reason to believe that the person who
+had completed the interview process might not have been the person who
+joined.
 
-These were uncomfortable experiences. They also made us look at what our
-process was relying on. We had written feedback, but we hadn't built
-enough checks around candidate identity and the handover from interview
-to joining.
+These were uncomfortable situations, and I don't want to turn them into
+stories about individual candidates. The part that mattered for us as a
+team was that our process had left too much room for a mismatch between
+the interview and the person who eventually joined.
 
 ## We changed the process
 
@@ -78,28 +58,32 @@ it wasn't a complete answer on its own. When you're interviewing at high
 volume and someone joins months later, memory is still unreliable.
 
 We also added more people to the initial screening stage. That made it
-easier to share the load and gave us another opportunity to spot
-inconsistencies before a candidate progressed too far.
+easier to share the load and gave us another opportunity to compare
+impressions before a candidate progressed too far.
 
-The important change was treating these as process gaps, not just
-isolated bad experiences. We tightened the way we screened candidates
-and connected the interview process to the person who eventually joined.
-We didn't encounter the same kind of issue after making those changes.
+We became more deliberate about the continuity between screening,
+interviews and joining. We didn't encounter the same kind of issue after
+making these changes.
 
 ## The process has to match the pace
 
-Startups often have to move quickly. That doesn't mean every shortcut is
-worth taking. A process that works when you're hiring a few people can
-become fragile when interview volume increases and the same people are
-trying to run teams, deliver projects and recruit.
+A hiring process that works when you're recruiting a few people can
+become fragile when the volume increases and the same people are trying
+to run teams, deliver projects and interview candidates. Written
+feedback is useful, but it can't carry the whole process on its own.
 
-There are limits to what you can do about market reputation or
-compensation when the decisions sit elsewhere. But you can improve the
-parts of hiring that are within your control: who screens candidates,
-how feedback is recorded, how interviewers coordinate, and how you
-verify that the person joining is the person you assessed.
+There were other constraints too. Startup reputation can affect whether
+candidates consider a role, and compensation isn't always something an
+engineering leader can change independently. I could raise salary-parity
+concerns with top management, but I couldn't make those decisions on my
+own. Those conversations needed care, especially when differences became
+visible during performance reviews.
 
-I learned that documentation matters, but it isn't enough by itself. The
-process has to make the right information usable at the point where a
-decision is made. Otherwise, you can have a record of every interview
-and still miss something important.
+Not every part of hiring was within my control. The screening process,
+the way interviewers shared responsibility, and how we used feedback
+were. That's where we focused our changes.
+
+The experience reminded me that documentation matters, but it isn't
+enough by itself. The process has to make the right information useful
+when a decision is being made. Otherwise, you can have a record of every
+interview and still miss something important.
